@@ -4,32 +4,68 @@ const App = () => {
   return (
     <>
       <div className="flex h-screen flex-col items-center justify-center">
-        <h1 className="mb-4 text-3xl font-bold">Welcome to midi ready!</h1>
+        <h1 className="mb-4 text-3xl font-bold">Welcome to midi-ready!</h1>
         <div className="piano mt-4">
-          <div className="octave">
-            <div className="key white" data-note="C"></div>
-            <div className="key black" data-note="C#"></div>
-            <div className="key white" data-note="D"></div>
-            <div className="key black" data-note="D#"></div>
-            <div className="key white" data-note="E"></div>
-            <div className="key white" data-note="F"></div>
-            <div className="key black" data-note="F#"></div>
-            <div className="key white" data-note="G"></div>
-            <div className="key black" data-note="G#"></div>
-            <div className="key white" data-note="A"></div>
-            <div className="key black" data-note="A#"></div>
-            <div className="key white" data-note="B"></div>
+          {/* <div className="octave"> */}
+          <div id="keys" className="relative flex">
+            {/* White Keys */}
+            <button
+              className="key white z-1 mr-1 h-44 w-8 cursor-pointer rounded-md rounded-t-none border border-gray-500 bg-white first:rounded-t-md last:rounded-t-md hover:bg-blue-600"
+              data-note="C"
+            ></button>
+            <button
+              className="key white z-1 mr-1 h-44 w-8 cursor-pointer rounded-md rounded-t-none border border-gray-500 bg-white first:rounded-t-md last:rounded-t-md hover:bg-blue-600"
+              data-note="C"
+            ></button>
+            <button
+              className="key white z-1 mr-1 h-44 w-8 cursor-pointer rounded-md rounded-t-none border border-gray-500 bg-white first:rounded-t-md last:rounded-t-md hover:bg-blue-600"
+              data-note="C"
+            ></button>
+            <button
+              className="key white z-1 mr-1 h-44 w-8 cursor-pointer rounded-md rounded-t-none border border-gray-500 bg-white first:rounded-t-md last:rounded-t-md hover:bg-blue-600"
+              data-note="C"
+            ></button>
+            <button
+              className="key white z-1 mr-1 h-44 w-8 cursor-pointer rounded-md rounded-t-none border border-gray-500 bg-white first:rounded-t-md last:rounded-t-md hover:bg-blue-600"
+              data-note="C"
+            ></button>
+            <button
+              className="key white z-1 mr-1 h-44 w-8 cursor-pointer rounded-md rounded-t-none border border-gray-500 bg-white first:rounded-t-md last:rounded-t-md hover:bg-blue-600"
+              data-note="C"
+            ></button>
+            <button
+              className="key white z-1 mr-1 h-44 w-8 cursor-pointer rounded-md rounded-t-none border border-gray-500 bg-white first:rounded-t-md last:rounded-t-md hover:bg-blue-600"
+              data-note="C"
+            ></button>
+
+            {/* Black Keys - 36px seperation*/}
+            <button
+              className="absolute h-28 w-5 cursor-pointer rounded-md rounded-t-none bg-gray-900 hover:bg-blue-800"
+              style={{ marginLeft: '24px' }}
+            ></button>
+            <button
+              className="absolute h-28 w-5 cursor-pointer rounded-md rounded-t-none bg-gray-900 hover:bg-blue-800"
+              style={{ marginLeft: '60px' }}
+            ></button>
+            <button
+              className="invisible absolute h-28 w-5 cursor-pointer rounded-md rounded-t-none bg-gray-900 hover:bg-blue-800"
+              style={{ marginLeft: '96px' }}
+            ></button>
+            <button
+              className="absolute h-28 w-5 cursor-pointer rounded-md rounded-t-none bg-gray-900 hover:bg-blue-800"
+              style={{ marginLeft: '132px' }}
+            ></button>
+            <button
+              className="absolute h-28 w-5 cursor-pointer rounded-md rounded-t-none bg-gray-900 hover:bg-blue-800"
+              style={{ marginLeft: '168px' }}
+            ></button>
+            <button
+              className="absolute h-28 w-5 cursor-pointer rounded-md rounded-t-none bg-gray-900 hover:bg-blue-800"
+              style={{ marginLeft: '204px' }}
+            ></button>
           </div>
         </div>
-        {/* <!-- add more octaves as needed --> */}
       </div>
-
-      <p
-        id="my-paragraph"
-        className="bg-sky-500 text-3xl font-bold hover:bg-sky-700"
-      >
-        Click me to do something!
-      </p>
     </>
   )
 }
