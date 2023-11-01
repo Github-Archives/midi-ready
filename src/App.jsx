@@ -1,10 +1,18 @@
-import React, { useEffect } from 'react'
-import { Synth, Destination } from 'tone'
+import React, { useState, useEffect } from 'react'
+// import { Synth, Destination } from 'tone'
 import HandleMidi from './Utilities/HandleMidi'
+import * as Tone from 'tone'
 import './App.css'
 
 const App = () => {
+  const [note, setNote] = useState()
+  //create a synth and connect it to the main output (your speakers)
+  const synth = new Tone.Synth().toDestination()
+  const [noteQueue, setNoteQueue] = useState(new Set()) // Use a Set to track the notes being played
+
   useEffect(() => {
+    const noteQueue = new Set() // Use a Set to track the notes being played
+
     // Function to handle MIDI device connection
     const initializeMIDI = async () => {
       try {
@@ -28,6 +36,21 @@ const App = () => {
             console.log('command:', command)
             console.log('note:', note)
             console.log('velocity:', velocity)
+            if (command === 144) {
+              // Note on
+              if (!noteQueue.has(note)) {
+                setNoteQueue(new Set(noteQueue.add(note)))
+
+                synth.triggerAttack(`${note}`, undefined, velocity)
+              }
+            } else if (command === 128) {
+              // Note off
+              if (noteQueue.has(note)) {
+                synth.triggerRelease(`${note}`)
+                noteQueue.delete(note)
+                setNoteQueue(new Set(noteQueue))
+              }
+            }
           }
         }
       } catch (error) {
@@ -39,10 +62,12 @@ const App = () => {
 
     // Cleanup effect (optional)
     return () => {
-      // Remove event listeners or clean up when the component unmounts
+      // Clean up when the component unmounts
+      noteQueue.forEach(note => {
+        synth.triggerRelease(`${note}`)
+      })
     }
-  }, [])
-
+  }, [synth])
   return (
     <>
       <div className="flex h-screen flex-col items-center justify-center">
@@ -77,33 +102,39 @@ const App = () => {
             ></button>
             <button
               className="key white z-1 mr-1 h-44 w-8 cursor-pointer rounded-md rounded-t-none border border-gray-500 bg-white first:rounded-t-md last:rounded-t-md hover:bg-blue-600"
-              data-note="C"
+              data-note="B4"
             ></button>
 
             {/* Black Keys - 36px seperation*/}
             <button
               className="absolute h-28 w-5 cursor-pointer rounded-md rounded-t-none bg-gray-900 hover:bg-blue-800"
               style={{ marginLeft: '24px' }}
+              data-note="C4#"
             ></button>
             <button
               className="absolute h-28 w-5 cursor-pointer rounded-md rounded-t-none bg-gray-900 hover:bg-blue-800"
               style={{ marginLeft: '60px' }}
+              data-note="D4#"
             ></button>
             <button
               className="invisible absolute h-28 w-5 cursor-pointer rounded-md rounded-t-none bg-gray-900 hover:bg-blue-800"
               style={{ marginLeft: '96px' }}
+              data-note="F4#"
             ></button>
             <button
               className="absolute h-28 w-5 cursor-pointer rounded-md rounded-t-none bg-gray-900 hover:bg-blue-800"
               style={{ marginLeft: '132px' }}
+              data-note="G4#"
             ></button>
             <button
               className="absolute h-28 w-5 cursor-pointer rounded-md rounded-t-none bg-gray-900 hover:bg-blue-800"
               style={{ marginLeft: '168px' }}
+              data-note="A4#"
             ></button>
             <button
               className="absolute h-28 w-5 cursor-pointer rounded-md rounded-t-none bg-gray-900 hover:bg-blue-800"
               style={{ marginLeft: '204px' }}
+              data-note="B4#"
             ></button>
           </div>
         </div>
