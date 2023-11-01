@@ -19,6 +19,9 @@ const App = () => {
           // Add event listeners to MIDI input devices
           input.value.onmidimessage = event => {
             // Handle MIDI messages here
+            // command 144 = note on, 128 = note off
+            // note 0 - 127 (middle C = 60)
+            // velocity 0 - 127 (0 = no sound, 127 = full volume)
             const [command, note, velocity] = event.data
             // Do something with the MIDI data, e.g., trigger a sound
             console.log('Received MIDI message:', event.data)
