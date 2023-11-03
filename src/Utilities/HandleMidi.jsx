@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import HandleTone from './HandleTone'
 
 function HandleMidi() {
@@ -6,6 +6,9 @@ function HandleMidi() {
   const pressedNotes = new Set()
   // Part of Audio Reset Button required by user interaction browser policy
   const audioContext = useRef(null)
+  // Total Latency Average
+  const latencyMeasurements = useRef([])
+  const [averageLatency, setAverageLatency] = useState(0)
 
   // Function to start the Tone.js AudioContext
   const startAudioContext = () => {
@@ -64,15 +67,25 @@ function HandleMidi() {
                 recognitionTimestamp - receivedTimestamp
               const soundGenerationLatency =
                 soundGenerationTimestamp - recognitionTimestamp
+              const totalLatency = recognitionLatency + soundGenerationLatency
+
+              // Store the total latency in the measurements array
+              latencyMeasurements.current.push(totalLatency)
 
               console.log('Keyboard => App Latency (ms):\n', recognitionLatency)
               console.log(
                 'App => Sound Generation Latency (ms):\n',
                 soundGenerationLatency,
               )
-              console.log(
-                'Total Latency (ms):\n',
-                recognitionLatency + soundGenerationLatency,
+              console.log('Total Latency (ms):\n', totalLatency)
+
+              // Update the average latency
+              const sumLatencies = latencyMeasurements.current.reduce(
+                (sum, latency) => sum + latency,
+                0,
+              )
+              setAverageLatency(
+                sumLatencies / latencyMeasurements.current.length,
               )
               // ++++++++++++++++++++++++++
 
@@ -111,6 +124,8 @@ function HandleMidi() {
   return (
     <div>
       <button onClick={startAudioContext}>Start Audio</button>
+      <div>Average Total Latency (Seconds): {averageLatency / 1000}</div>
+      <div>Average Total Latency (ms): {averageLatency}</div>
     </div>
   )
 }
