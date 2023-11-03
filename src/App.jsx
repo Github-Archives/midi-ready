@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 // import { Synth, Destination } from 'tone'
 import HandleMidi from './Utilities/HandleMidi'
-import * as Tone from 'tone'
+import HandleTone from './Utilities/HandleTone'
+// import * as Tone from 'tone'
 import './App.css'
 
 const App = () => {
   const [note, setNote] = useState()
   //create a synth and connect it to the main output (your speakers)
-  const synth = new Tone.Synth().toDestination()
+  // const synth = new Tone.Synth().toDestination()
   const [noteQueue, setNoteQueue] = useState(new Set()) // Use a Set to track the notes being played
 
   useEffect(() => {
@@ -33,24 +34,27 @@ const App = () => {
             const [command, note, velocity] = event.data
             // Do something with the MIDI data, e.g., trigger a sound
             console.log('Received MIDI message:', event.data)
-            console.log('command:', command)
-            console.log('note:', note)
-            console.log('velocity:', velocity)
-            if (command === 144) {
-              // Note on
-              if (!noteQueue.has(note)) {
-                setNoteQueue(new Set(noteQueue.add(note)))
+            // console.log('command:', command)
+            // console.log('note:', note)
+            // console.log('velocity:', velocity)
 
-                synth.triggerAttack(`${note}`, undefined, velocity)
-              }
-            } else if (command === 128) {
-              // Note off
-              if (noteQueue.has(note)) {
-                synth.triggerRelease(`${note}`)
-                noteQueue.delete(note)
-                setNoteQueue(new Set(noteQueue))
-              }
-            }
+            // send HandleTone command, note, velocity
+            HandleTone(command, note, velocity)
+            // if (command === 144) {
+            //   // Note on
+            //   if (!noteQueue.has(note)) {
+            //     setNoteQueue(new Set(noteQueue.add(note)))
+
+            //     synth.triggerAttack(`${note}`, undefined, velocity)
+            //   }
+            // } else if (command === 128) {
+            //   // Note off
+            //   if (noteQueue.has(note)) {
+            //     synth.triggerRelease(`${note}`)
+            //     noteQueue.delete(note)
+            //     setNoteQueue(new Set(noteQueue))
+            //   }
+            // }
           }
         }
       } catch (error) {
@@ -60,17 +64,20 @@ const App = () => {
 
     initializeMIDI()
 
-    // Cleanup effect (optional)
-    return () => {
-      // Clean up when the component unmounts
-      noteQueue.forEach(note => {
-        synth.triggerRelease(`${note}`)
-      })
-    }
-  }, [synth])
+    //   // Cleanup effect (optional)
+    //   return () => {
+    //     // Clean up when the component unmounts
+    //     noteQueue.forEach(note => {
+    //       synth.triggerRelease(`${note}`)
+    //     })
+    //   }
+    // }, [synth])
+  }, [])
+
   return (
     <div className="flex h-screen flex-col items-center justify-center">
       <h1 className="mb-4 text-3xl font-bold">Welcome to midi-ready!</h1>
+      <HandleTone />
       <div className="piano mt-4">
         {/* Single C4 Octave */}
         <div id="keys" className="relative flex">
