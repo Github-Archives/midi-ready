@@ -6,9 +6,18 @@ function HandleMidi() {
   const pressedNotes = new Set()
   // Part of Audio Reset Button required by user interaction browser policy
   const audioContext = useRef(null)
+
+  // ++++++++++++++++++++++++++
   // Total Latency Average
   const latencyMeasurements = useRef([])
   const [averageLatency, setAverageLatency] = useState(0)
+
+  // Trying to speed things back up
+  const latencyBuffer = useRef([])
+  // Adjust the latencyBufferLength as needed to control the number of measurements included in the average
+  const latencyBufferLength = 22 // Change this one to smaller number to speed up the average latency
+
+  // ++++++++++++++++++++++++++
 
   // Function to start the Tone.js AudioContext
   const startAudioContext = () => {
@@ -62,12 +71,27 @@ function HandleMidi() {
               // ++++++++++++++++++++++++++
               // Timestamp when Tone.js generates sound
               const soundGenerationTimestamp = performance.now()
-
               const recognitionLatency =
                 recognitionTimestamp - receivedTimestamp
               const soundGenerationLatency =
                 soundGenerationTimestamp - recognitionTimestamp
               const totalLatency = recognitionLatency + soundGenerationLatency
+
+              // a circular buffer stores the most recent latency measurements, and the average latency is calculated from these measurements. This approach can help smooth out variations in latency and provide a more stable measurement. Adjust the latencyBufferLength as needed to control the number of measurements included in the average.
+              // Add the total latency to the circular buffer
+              latencyBuffer.current.push(totalLatency)
+              if (latencyBuffer.current.length > latencyBufferLength) {
+                latencyBuffer.current.shift() // Remove the oldest measurement
+              }
+
+              const sumLatencies = latencyBuffer.current.reduce(
+                (sum, latency) => sum + latency,
+                0,
+              )
+              // Update the average latency
+              setAverageLatency(
+                sumLatencies / latencyMeasurements.current.length,
+              )
 
               // Store the total latency in the measurements array
               latencyMeasurements.current.push(totalLatency)
@@ -78,15 +102,7 @@ function HandleMidi() {
                 soundGenerationLatency,
               )
               console.log('Total Latency (ms):\n', totalLatency)
-
-              // Update the average latency
-              const sumLatencies = latencyMeasurements.current.reduce(
-                (sum, latency) => sum + latency,
-                0,
-              )
-              setAverageLatency(
-                sumLatencies / latencyMeasurements.current.length,
-              )
+              console.log('Average Latency (ms):', averageLatency)
               // ++++++++++++++++++++++++++
 
               // Handle the note press here
