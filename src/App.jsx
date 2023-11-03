@@ -72,32 +72,32 @@ const App = () => {
     <div className="flex h-screen flex-col items-center justify-center">
       <h1 className="mb-4 text-3xl font-bold">Welcome to midi-ready!</h1>
       <div className="piano mt-4">
-        {/* <div className="octave"> */}
+        {/* Single C4 Octave */}
         <div id="keys" className="relative flex">
           {/* White Keys */}
           <button
             className="key white z-1 mr-1 h-44 w-8 cursor-pointer rounded-md rounded-t-none border border-gray-500 bg-white first:rounded-t-md last:rounded-t-md hover:bg-blue-600"
-            data-note="C4" // Adjust the note value as needed
+            data-note="C4"
           ></button>
           <button
             className="key white z-1 mr-1 h-44 w-8 cursor-pointer rounded-md rounded-t-none border border-gray-500 bg-white first:rounded-t-md last:rounded-t-md hover:bg-blue-600"
-            data-note="C"
+            data-note="D4"
           ></button>
           <button
             className="key white z-1 mr-1 h-44 w-8 cursor-pointer rounded-md rounded-t-none border border-gray-500 bg-white first:rounded-t-md last:rounded-t-md hover:bg-blue-600"
-            data-note="C"
+            data-note="E4"
           ></button>
           <button
             className="key white z-1 mr-1 h-44 w-8 cursor-pointer rounded-md rounded-t-none border border-gray-500 bg-white first:rounded-t-md last:rounded-t-md hover:bg-blue-600"
-            data-note="C"
+            data-note="F4"
           ></button>
           <button
             className="key white z-1 mr-1 h-44 w-8 cursor-pointer rounded-md rounded-t-none border border-gray-500 bg-white first:rounded-t-md last:rounded-t-md hover:bg-blue-600"
-            data-note="C"
+            data-note="G4"
           ></button>
           <button
             className="key white z-1 mr-1 h-44 w-8 cursor-pointer rounded-md rounded-t-none border border-gray-500 bg-white first:rounded-t-md last:rounded-t-md hover:bg-blue-600"
-            data-note="C"
+            data-note="A4"
           ></button>
           <button
             className="key white z-1 mr-1 h-44 w-8 cursor-pointer rounded-md rounded-t-none border border-gray-500 bg-white first:rounded-t-md last:rounded-t-md hover:bg-blue-600"
@@ -118,22 +118,22 @@ const App = () => {
           <button
             className="invisible absolute h-28 w-5 cursor-pointer rounded-md rounded-t-none bg-gray-900 hover:bg-blue-800"
             style={{ marginLeft: '96px' }}
-            data-note="F4#"
+            data-note="invisible"
           ></button>
           <button
             className="absolute h-28 w-5 cursor-pointer rounded-md rounded-t-none bg-gray-900 hover:bg-blue-800"
             style={{ marginLeft: '132px' }}
-            data-note="G4#"
+            data-note="F4#"
           ></button>
           <button
             className="absolute h-28 w-5 cursor-pointer rounded-md rounded-t-none bg-gray-900 hover:bg-blue-800"
             style={{ marginLeft: '168px' }}
-            data-note="A4#"
+            data-note="G4#"
           ></button>
           <button
             className="absolute h-28 w-5 cursor-pointer rounded-md rounded-t-none bg-gray-900 hover:bg-blue-800"
             style={{ marginLeft: '204px' }}
-            data-note="B4#"
+            data-note="A4#"
           ></button>
         </div>
       </div>
