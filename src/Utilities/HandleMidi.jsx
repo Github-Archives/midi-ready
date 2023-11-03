@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-// import HandleTone from './HandleTone'
+import HandleTone from './HandleTone'
 
 function HandleMidi() {
   // Create a Set to store the currently pressed notes. Sets allow only one instance of each value.
@@ -26,10 +26,12 @@ function HandleMidi() {
             // Note On
             if (!pressedNotes.has(note)) {
               pressedNotes.add(note)
+
+              HandleTone(command, note, velocity)
               // Handle the note press here
               console.log('Note On:', note)
-              console.log('HandleMidi command:', command)
-              console.log('HandleMidi velocity:', velocity)
+              // console.log('HandleMidi command:', command)
+              // console.log('HandleMidi velocity:', velocity)
             }
           } else if (command === 128) {
             // Note Off
@@ -37,8 +39,8 @@ function HandleMidi() {
               pressedNotes.delete(note)
               // Handle the note release here
               console.log('Note Off:', note)
-              console.log('HandleMidi command:', command)
-              console.log('HandleMidi velocity:', velocity)
+              // console.log('HandleMidi command:', command)
+              // console.log('HandleMidi velocity:', velocity)
             }
           }
         }

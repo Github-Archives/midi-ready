@@ -5,31 +5,22 @@ import * as Tone from 'tone'
 // note 0 - 127 (middle C = 60)
 // velocity 0 - 127 (0 = no sound, 127 = full volume)
 function HandleTone(command, note, velocity) {
-  //   console.log('HERE command:', command)
-  //   console.log('HERE note:', note)
-  //   console.log('HERE velocity:', velocity)
+  console.log('HandleTone: command:', command)
+  console.log('HandleTone: note:', note)
+  console.log('HandleTone: velocity:', velocity)
 
-  //create a synth and connect it to the main output (your speakers)
+  // create a synth and connect it to the main output (your speakers)
   const synth = new Tone.Synth().toDestination()
-  const [noteQueue, setNoteQueue] = useState(new Set()) // Use a Set to track the notes being
-
-  //   const noteQueue = new Set() // Use a Set to track the notes being played
-
-  if (command === 144) {
-    // Note on
-    if (!noteQueue.has(note)) {
-      setNoteQueue(new Set(noteQueue.add(note)))
-
-      synth.triggerAttack(`${note}`, undefined, velocity)
-    }
-  } else if (command === 128) {
-    // Note off
-    if (noteQueue.has(note)) {
-      synth.triggerRelease(`${note}`)
-      noteQueue.delete(note)
-      setNoteQueue(new Set(noteQueue))
-    }
+  // play a middle 'C' for the duration of an 8th note
+  //   synth.triggerAttackRelease(`${note}`, undefined, velocity)
+  if (note === 60) {
+    synth.triggerAttackRelease('C4', '8n')
+  } else if (note === 62) {
+    synth.triggerAttackRelease('D4', '8n')
   }
+
+  synth.triggerAttackRelease(`${note}`, undefined, velocity)
+
   return null
 }
 

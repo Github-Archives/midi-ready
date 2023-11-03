@@ -1,8 +1,5 @@
 import React from 'react'
-// import { Synth, Destination } from 'tone'
 import HandleMidi from './Utilities/HandleMidi'
-// import HandleTone from './Utilities/HandleTone'
-// import * as Tone from 'tone'
 import './App.css'
 
 const App = () => {
