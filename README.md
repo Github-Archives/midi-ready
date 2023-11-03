@@ -1,8 +1,15 @@
-# React + Vite
+# Midi-ready
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Basic browser keyboard triggered by midi input
 
-Currently, two official plugins are available:
+# Utilizes
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[requestMIDIAccess()](https://developer.mozilla.org/en-US/docs/Web/API/MIDIAccess) from the Web MIDI API
+
+[Tone.js](https://tonejs.github.io/) for audio
+
+# Tools/Other
+
+[Parse a MIDI file into a Tone.js-friendly JSON format.](https://tonejs.github.io/Midi/)
+
+[Downloadable MIDI Files](https://bitmidi.com/)
