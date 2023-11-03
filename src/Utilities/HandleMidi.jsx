@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import HandleTone from './HandleTone'
+import CalculateLatency from './CalculateLatency'
 
 function HandleMidi() {
   // Create a Set to store the currently pressed notes. Sets allow only one instance of each value.
@@ -7,17 +8,16 @@ function HandleMidi() {
   // Part of Audio Reset Button required by user interaction browser policy
   const audioContext = useRef(null)
 
-  // ++++++++++++++++++++++++++
-  // Total Latency Average
-  const latencyMeasurements = useRef([])
-  const [averageLatency, setAverageLatency] = useState(0)
+  // // ++++++++++++++++++++++++++
+  // // Total Latency Average
+  // const latencyMeasurements = useRef([])
+  // const [averageLatency, setAverageLatency] = useState(0)
 
-  // Trying to speed things back up
-  const latencyBuffer = useRef([])
-  // Adjust the latencyBufferLength as needed to control the number of measurements included in the average
-  const latencyBufferLength = 22 // Change this one to smaller number to speed up the average latency
-
-  // ++++++++++++++++++++++++++
+  // // Trying to speed things back up
+  // const latencyBuffer = useRef([])
+  // // Adjust the latencyBufferLength as needed to control the number of measurements included in the average
+  // const latencyBufferLength = 22 // Change this one to smaller number to speed up the average latency
+  // // ++++++++++++++++++++++++++
 
   // Function to start the Tone.js AudioContext
   const startAudioContext = () => {
@@ -62,7 +62,6 @@ function HandleMidi() {
               // ++++++++++++++++++++++++++
               // Timestamp when App recognizes key pressed
               const recognitionTimestamp = performance.now()
-
               // ++++++++++++++++++++++++++
 
               HandleTone(command, note, velocity)
