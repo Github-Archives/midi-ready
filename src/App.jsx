@@ -1,4 +1,3 @@
-import React from 'react'
 import HandleMidi from './Utilities/HandleMidi'
 import './App.css'
 
@@ -7,7 +6,6 @@ const App = () => {
     <div className="flex h-screen flex-col items-center justify-center">
       <h1 className="mb-4 text-3xl font-bold">Welcome to midi-ready!</h1>
       <HandleMidi />
-      {/* <HandleTone /> */}
       <div className="piano mt-4">
         {/* Single C4 Octave */}
         <div id="keys" className="relative flex">

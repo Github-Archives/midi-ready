@@ -1,9 +1,21 @@
-import React, { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import HandleTone from './HandleTone'
 
 function HandleMidi() {
   // Create a Set to store the currently pressed notes. Sets allow only one instance of each value.
   const pressedNotes = new Set()
+  // Part of Audio Reset Button required by user interaction browser policy
+  const audioContext = useRef(null)
+
+  // Function to start the Tone.js AudioContext
+  const startAudioContext = () => {
+    if (audioContext.current && audioContext.current.state === 'suspended') {
+      audioContext.current.resume().then(() => {
+        console.log('AudioContext resumed')
+      })
+    }
+  }
+
   // Function to handle MIDI device connection
   const initializeMIDI = async () => {
     try {
@@ -27,11 +39,12 @@ function HandleMidi() {
             if (!pressedNotes.has(note)) {
               pressedNotes.add(note)
 
+              // Start the AudioContext before triggering notes
+              startAudioContext()
+
               HandleTone(command, note, velocity)
               // Handle the note press here
               console.log('Note On:', note)
-              // console.log('HandleMidi command:', command)
-              // console.log('HandleMidi velocity:', velocity)
             }
           } else if (command === 128) {
             // Note Off
@@ -39,8 +52,6 @@ function HandleMidi() {
               pressedNotes.delete(note)
               // Handle the note release here
               console.log('Note Off:', note)
-              // console.log('HandleMidi command:', command)
-              // console.log('HandleMidi velocity:', velocity)
             }
           }
         }
@@ -64,7 +75,11 @@ function HandleMidi() {
     }
   }, [initializeMIDI])
 
-  return null
+  return (
+    <div>
+      <button onClick={startAudioContext}>Start Audio</button>
+    </div>
+  )
 }
 
 export default HandleMidi

@@ -1,52 +1,22 @@
-import React, { useState } from 'react'
 import * as Tone from 'tone'
-import ConvertMidiCommandsToNotes from './ConvertMidiCommandsToNotes'
+import ConvertMidiToNoteNames from './ConvertMidiToNoteNames'
 
-// command 144 = note on, 128 = note off
-// note 0 - 127 (middle C = 60)
-// velocity 0 - 127 (0 = no sound, 127 = full volume)
+// Command 144 = note on, 128 = note off
+// Note 0 - 127 (middle C = 60)
+// Velocity 0 - 127 (0 = no sound, 127 = full volume)
 
-// const noteLetter = ''
 function HandleTone(command, note, velocity) {
-  console.log('HandleTone: command:', command)
-  console.log('HandleTone: note:', note)
-  console.log('HandleTone: velocity:', velocity)
-
-  // create a synth and connect it to the main output (your speakers)
+  // Create a synth and connect it to the main output (your speakers)
   const synth = new Tone.Synth().toDestination()
-  // play a middle 'C' for the duration of an 8th note
-  //   synth.triggerAttackRelease(`${note}`, undefined, velocity)
-  // //
-  //   console.log('HandleTone: note:', note)
-  //   const noteLetter = ConvertMidiCommandsToNotes(note)
-  //   console.log('HandleTone: noteLetter:', noteLetter)
-  //   synth.triggerAttackRelease(`${noteLetter}`, '8n')
-  //   synth.triggerAttackRelease('C4', '8n')
-  const aNote = 'C6'
-  console.log('HandleTone: aNote:', aNote)
-  console.log(typeof aNote)
+  const now = Tone.now() // (Optional)
 
-  //   const bNote = ConvertMidiCommandsToNotes(aNote)
-  if (note === 60) {
-    console.log('Here 1')
-    const xxx = async () => {
-      console.log('Here 2')
-      try {
-        console.log('Here 3')
-        const bNote = await ConvertMidiCommandsToNotes(aNote)
-        synth.triggerAttackRelease(bNote, '8n')
-      } catch (error) {
-        console.log('Here 4')
-        console.error('CONVERT MIDI TO NOTE ERROR ', error)
-      }
-    }
-    xxx()
-    // synth.triggerAttackRelease(bNote, '8n')
-  } else if (note === 62) {
-    synth.triggerAttackRelease('D4', '8n')
-  }
+  // The first argument to the note which can either be a frequency in hertz (like 440) or as “pitch-octave” notation (like "D#2").
 
-  //   synth.triggerAttackRelease(`${note}`, undefined, velocity)
+  // The second argument is the duration that the note is held. This value can either be in seconds, or as a tempo-relative value.
+
+  // The third (optional) argument of triggerAttackRelease is when along the AudioContext time the note should play. It can be used to schedule events in the future.
+  const currentNote = ConvertMidiToNoteNames(note)
+  synth.triggerAttackRelease(currentNote, '8n', now)
 
   return null
 }
