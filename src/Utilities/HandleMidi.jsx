@@ -48,7 +48,7 @@ function HandleMidi() {
               const processingTimestamp = performance.now()
               const latency = processingTimestamp - receivedTimestamp
 
-              console.log('Latency (ms):', latency)
+              console.log('Keyboard => App Latency (ms):', latency)
 
               HandleTone(command, note, velocity)
               console.log('Note On:', note)
