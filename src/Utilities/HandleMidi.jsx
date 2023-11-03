@@ -11,7 +11,7 @@ function HandleMidi() {
   const startAudioContext = () => {
     if (audioContext.current && audioContext.current.state === 'suspended') {
       audioContext.current.resume().then(() => {
-        console.log('AudioContext resumed')
+        console.log('AudioContext resumed\n')
       })
     }
   }
@@ -33,6 +33,8 @@ function HandleMidi() {
           // note 0 - 127 (middle C = 60)
           // velocity 0 - 127 (0 = no sound, 127 = full volume)
           const [command, note, velocity] = event.data
+          // Timestamp when MIDI event is received
+          const receivedTimestamp = event.timeStamp
 
           if (command === 144) {
             // Note On
@@ -41,6 +43,15 @@ function HandleMidi() {
 
               // Start the AudioContext before triggering notes
               startAudioContext()
+
+              // Timestamp when app processes the event
+              const processingTimestamp = performance.now()
+              const latency = processingTimestamp - receivedTimestamp
+
+              console.log('Latency (ms):', latency)
+
+              HandleTone(command, note, velocity)
+              console.log('Note On:', note)
 
               HandleTone(command, note, velocity)
               // Handle the note press here
