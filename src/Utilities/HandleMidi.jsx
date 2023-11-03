@@ -33,8 +33,11 @@ function HandleMidi() {
           // note 0 - 127 (middle C = 60)
           // velocity 0 - 127 (0 = no sound, 127 = full volume)
           const [command, note, velocity] = event.data
+
+          // ++++++++++++++++++++++++++
           // Timestamp when MIDI event is received
           const receivedTimestamp = event.timeStamp
+          // ++++++++++++++++++++++++++
 
           if (command === 144) {
             // Note On
@@ -44,16 +47,35 @@ function HandleMidi() {
               // Start the AudioContext before triggering notes
               startAudioContext()
 
-              // Timestamp when app processes the event
-              const processingTimestamp = performance.now()
-              const latency = processingTimestamp - receivedTimestamp
+              // ++++++++++++++++++++++++++
+              // Timestamp when App recognizes key pressed
+              const recognitionTimestamp = performance.now()
 
-              console.log('Keyboard => App Latency (ms):', latency)
+              // ++++++++++++++++++++++++++
 
               HandleTone(command, note, velocity)
               console.log('Note On:', note)
 
-              HandleTone(command, note, velocity)
+              // ++++++++++++++++++++++++++
+              // Timestamp when Tone.js generates sound
+              const soundGenerationTimestamp = performance.now()
+
+              const recognitionLatency =
+                recognitionTimestamp - receivedTimestamp
+              const soundGenerationLatency =
+                soundGenerationTimestamp - recognitionTimestamp
+
+              console.log('Keyboard => App Latency (ms):\n', recognitionLatency)
+              console.log(
+                'App => Sound Generation Latency (ms):\n',
+                soundGenerationLatency,
+              )
+              console.log(
+                'Total Latency (ms):\n',
+                recognitionLatency + soundGenerationLatency,
+              )
+              // ++++++++++++++++++++++++++
+
               // Handle the note press here
               console.log('Note On:', note)
             }
