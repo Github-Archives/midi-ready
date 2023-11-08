@@ -30,7 +30,7 @@ function HandleMidi() {
         input = inputs.next()
       ) {
         // Add event listeners to MIDI input devices
-        input.value.onmidimessage = event => {
+        input.value.onmidimessage = (event) => {
           // Handle MIDI messages here
           // command 144 = note on, 128 = note off
           // note 0 - 127 (middle C = 60)
@@ -49,7 +49,12 @@ function HandleMidi() {
               const HandleToneWithLatency = measureLatency(HandleTone)
 
               // This is how you call the wrapped HandleTone function as well as store returned latency of HandleTone
-              const latency = HandleToneWithLatency(command, note, velocity)
+              const latency = HandleToneWithLatency(
+                'MIDI',
+                command,
+                note,
+                velocity,
+              )
               setLatency(latency)
 
               // Handle the note press here
@@ -76,7 +81,7 @@ function HandleMidi() {
     // Cleanup on unmount
     return () => {
       // Release all pressed notes when unmounting
-      pressedNotes.forEach(note => {
+      pressedNotes.forEach((note) => {
         pressedNotes.delete(note)
         // Handle the note release here
         console.log('\x1b[94mNote On (on unmount):\x1b[0m', note)
