@@ -10,10 +10,8 @@ const App = () => {
     HandleTone('GUI', 144, note)
   }
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-gray-50">
-      <h1 className="mb-6 text-4xl font-extrabold text-indigo-800">
-        Welcome to midi-ready!
-      </h1>
+    <div className="bg-custom-1 flex h-screen flex-col items-center justify-center">
+      <h1 className="text-custom-4 mb-6 text-4xl">Welcome to midi-ready!</h1>
       <HandleMidi />
       <div className="piano mt-4">
         {/* Single C4 Octave */}
