@@ -1,3 +1,5 @@
+/* Use App.css for component-specific styles. If you have styles that are tightly coupled with a particular component and don't need to be available globally, place them in App.css or in the same file as the component itself. */
+
 /* .piano {
   display: flex;
 }
