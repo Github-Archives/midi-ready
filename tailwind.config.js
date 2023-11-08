@@ -6,7 +6,7 @@ export default {
     extend: {
       fontFamily: {
         // add installed font-family pkgs here
-        ostrich: ['Ostrich Sans', 'sans'],
+        ostrich: ['Ostrich Sans', 'sans'], // add className='font-ostrich'
       },
       colors: {
         // add custom colors here --> https://colorhunt.co/
