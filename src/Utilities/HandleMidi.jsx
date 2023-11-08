@@ -90,15 +90,16 @@ function HandleMidi() {
   }, [initializeMIDI])
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <button
-        className="m-2 rounded-lg border-4 border-purple-900 border-opacity-20 bg-blue-50 p-2 shadow-xl"
+        className="m-2 rounded-lg border-4 border-purple-900 border-opacity-10 bg-blue-50 p-2 text-gray-500 shadow-lg"
         onClick={startAudioContext}
       >
         Start Audio
       </button>
-      <div>Latency (Seconds): {latency / 1000}</div>
-      <div>Latency (ms): {latency}</div>
+      <div className="border-1 m-2 rounded-lg border-purple-400 border-opacity-20 bg-blue-50 p-1 text-gray-400 shadow-sm">
+        Latency (ms): {latency}
+      </div>
     </div>
   )
 }
