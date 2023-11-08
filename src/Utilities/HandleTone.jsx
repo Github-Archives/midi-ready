@@ -10,6 +10,7 @@ function HandleTone(command, note, velocity) {
   const synth = new Tone.Synth().toDestination()
   const now = Tone.now() // (Optional)
 
+  // triggerAttackRelease(note, duration, time)
   // The first argument to the note which can either be a frequency in hertz (like 440) or as “pitch-octave” notation (like "D#2").
 
   // The second argument is the duration that the note is held. This value can either be in seconds, or as a tempo-relative value.
