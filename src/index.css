@@ -4,9 +4,19 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-* {
+/* Find new fonts here --> https://fontsource.org/ */
+@import '@fontsource/ostrich-sans/300.css';
+@import '@fontsource/ostrich-sans/400.css';
+@import '@fontsource/ostrich-sans/700.css';
+@import '@fontsource/ostrich-sans/900.css';
+
+/* * {
+  font-family: 'Ostrich Sans', sans-serif;
+} */
+
+/* * {
   font-family: 'Times New Roman', Times, serif;
-}
+} */
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

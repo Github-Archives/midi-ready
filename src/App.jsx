@@ -11,8 +11,12 @@ const App = () => {
   }
   return (
     <div className="bg-custom-1 flex h-screen flex-col items-center justify-center">
-      <h1 className="text-custom-4 mb-6 text-4xl">Welcome to midi-ready!</h1>
+      {/* <h1 className="text-custom-4 mb-6 text-4xl ">Welcome to midi-ready!</h1> */}
+      <h1 className="text-custom-2 font-ostrich mb-6 text-5xl font-extrabold ">
+        Welcome to midi-ready!
+      </h1>
       <HandleMidi />
+
       <div className="piano mt-4">
         {/* Single C4 Octave */}
         <div id="keys" className="relative flex">
