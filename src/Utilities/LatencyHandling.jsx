@@ -2,11 +2,11 @@
 // The purpose of this anonymous function is to act as a wrapper around the HandleTone function. When you use measureLatency(HandleTone), it returns this anonymous function, which you can then call with the same arguments that HandleTone expects. This allows you to intercept the function call and perform additional actions, like measuring latency, before or after calling the original HandleTone function.
 export function measureLatency(HandleTone) {
   // Anonymous function defined on the fly
-  return function (command, note, velocity) {
+  return function (source, command, note, velocity) {
     const startTime = performance.now()
 
     // Call the original HandleTone function
-    HandleTone(command, note, velocity)
+    HandleTone(source, command, note, velocity)
 
     const endTime = performance.now()
     const latency = endTime - startTime

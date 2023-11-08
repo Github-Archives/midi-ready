@@ -1,7 +1,15 @@
 import HandleMidi from './Utilities/HandleMidi'
+import HandleTone from './Utilities/HandleTone'
 import './App.css'
 
 const App = () => {
+  function handleButtonClick(event, note) {
+    // You can now use the 'note' parameter to perform actions specific to the clicked note.
+    // For example, you can play a sound associated with the note.
+    console.log(`Clicked button with note: ${note}`)
+    // Call a function to handle the note-specific action, e.g., play a sound.
+    HandleTone('GUI', 144, note)
+  }
   return (
     <div className="flex h-screen flex-col items-center justify-center">
       <h1 className="mb-4 text-3xl font-bold">Welcome to midi-ready!</h1>
@@ -13,6 +21,7 @@ const App = () => {
           <button
             className="key white z-1 mr-1 h-44 w-8 cursor-pointer rounded-md rounded-t-none border border-gray-500 bg-white first:rounded-t-md last:rounded-t-md hover:bg-blue-600"
             data-note="C4"
+            onClick={(event) => handleButtonClick(event, 'C4')}
           ></button>
           <button
             className="key white z-1 mr-1 h-44 w-8 cursor-pointer rounded-md rounded-t-none border border-gray-500 bg-white first:rounded-t-md last:rounded-t-md hover:bg-blue-600"
