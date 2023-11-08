@@ -91,7 +91,12 @@ function HandleMidi() {
 
   return (
     <div>
-      <button onClick={startAudioContext}>Start Audio</button>
+      <button
+        className="m-2 rounded-lg border-4 border-purple-900 border-opacity-20 bg-blue-50 p-2 shadow-xl"
+        onClick={startAudioContext}
+      >
+        Start Audio
+      </button>
       <div>Latency (Seconds): {latency / 1000}</div>
       <div>Latency (ms): {latency}</div>
     </div>
