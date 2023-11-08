@@ -3,11 +3,10 @@ import HandleTone from './Utilities/HandleTone'
 import './App.css'
 
 const App = () => {
+  // Handle GUI button clicks
   function handleButtonClick(event, note) {
-    // You can now use the 'note' parameter to perform actions specific to the clicked note.
-    // For example, you can play a sound associated with the note.
     console.log(`Clicked button with note: ${note}`)
-    // Call a function to handle the note-specific action, e.g., play a sound.
+    // Play the Tone.js synth
     HandleTone('GUI', 144, note)
   }
   return (
