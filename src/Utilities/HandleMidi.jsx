@@ -1,17 +1,20 @@
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import HandleTone from './HandleTone'
+import { measureLatency } from './LatencyHandling'
 
 function HandleMidi() {
   // Create a Set to store the currently pressed notes. Sets allow only one instance of each value.
   const pressedNotes = new Set()
   // Part of Audio Reset Button required by user interaction browser policy
   const audioContext = useRef(null)
+  // Latency state
+  const [latency, setLatency] = useState(0)
 
   // Function to start the Tone.js AudioContext
   const startAudioContext = () => {
     if (audioContext.current && audioContext.current.state === 'suspended') {
       audioContext.current.resume().then(() => {
-        console.log('AudioContext resumed')
+        console.log('AudioContext resumed\n')
       })
     }
   }
@@ -42,16 +45,22 @@ function HandleMidi() {
               // Start the AudioContext before triggering notes
               startAudioContext()
 
-              HandleTone(command, note, velocity)
+              // Wrap HandleTone with latency measurement
+              const HandleToneWithLatency = measureLatency(HandleTone)
+
+              // This is how you call the wrapped HandleTone function as well as store returned latency of HandleTone
+              const latency = HandleToneWithLatency(command, note, velocity)
+              setLatency(latency)
+
               // Handle the note press here
-              console.log('Note On:', note)
+              console.log('\x1b[94mNote On:\x1b[0m', note)
             }
           } else if (command === 128) {
             // Note Off
             if (pressedNotes.has(note)) {
               pressedNotes.delete(note)
               // Handle the note release here
-              console.log('Note Off:', note)
+              console.log('\x1b[91mNote Off:\x1b[0m', note)
             }
           }
         }
@@ -70,7 +79,7 @@ function HandleMidi() {
       pressedNotes.forEach(note => {
         pressedNotes.delete(note)
         // Handle the note release here
-        console.log('Note Off (on unmount):', note)
+        console.log('\x1b[94mNote On (on unmount):\x1b[0m', note)
       })
     }
   }, [initializeMIDI])
@@ -78,6 +87,8 @@ function HandleMidi() {
   return (
     <div>
       <button onClick={startAudioContext}>Start Audio</button>
+      <div>Latency (Seconds): {latency / 1000}</div>
+      <div>Latency (ms): {latency}</div>
     </div>
   )
 }
