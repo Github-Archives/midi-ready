@@ -5,11 +5,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        // add installed font-family pkgs here
-        ostrich: ['Ostrich Sans', 'sans'], // add className='font-ostrich'
+        // Add installed font-family pkgs here
+        ostrich: ['Ostrich Sans', 'sans'], // Add to tag className='font-ostrich'
       },
       colors: {
-        // add custom colors here --> https://colorhunt.co/
+        // Add custom colors here from palettes --> https://colorhunt.co/
         'custom-1': '#610C9F',
         'custom-2': '#940B92',
         'custom-3': '#DA0C81',
