@@ -8,9 +8,9 @@ import ConvertMidiToNoteNames from './ConvertMidiToNoteNames'
 function HandleTone(source, command, note, velocity) {
   // Create a synth and connect it to the main output (your speakers)
 
-  console.log(
-    `source: ${source}, command: ${command}, note: ${note}, velocity: ${velocity}`,
-  )
+  // console.log(
+  //   `source: ${source}, command: ${command}, note: ${note}, velocity: ${velocity}`,
+  // )
   const synth = new Tone.Synth().toDestination()
   const now = Tone.now() // (Optional)
 
@@ -25,7 +25,7 @@ function HandleTone(source, command, note, velocity) {
   } else {
     synth.triggerAttackRelease(note, '8n', now)
   }
-  console.log(`currentNote: ${note}`)
+  // console.log(`currentNote: ${note}`)
 
   return null
 }

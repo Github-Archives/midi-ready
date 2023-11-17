@@ -1,8 +1,16 @@
 import { useState, useEffect, useRef } from 'react'
 import HandleTone from './HandleTone'
 import { measureLatency } from './LatencyHandling'
+import PropTypes from 'prop-types'
+import '../index.css'
 
-function HandleMidi() {
+function HandleMidi({ onMidiKeyClick }) {
+  // console.log('inside HandleMidi')
+  // console.log('typeof onMidiKeyClick')
+  // console.log(typeof onMidiKeyClick)
+  // console.log(`clickedMidiNote: ${clickedMidiNote}`)
+  // console.log('')
+
   // Create a Set to store the currently pressed notes. Sets allow only one instance of each value.
   const pressedNotes = new Set()
   // Part of Audio Reset Button required by user interaction browser policy
@@ -14,7 +22,7 @@ function HandleMidi() {
   const startAudioContext = () => {
     if (audioContext.current && audioContext.current.state === 'suspended') {
       audioContext.current.resume().then(() => {
-        console.log('AudioContext resumed\n')
+        // console.log('AudioContext resumed\n')
       })
     }
   }
@@ -58,14 +66,17 @@ function HandleMidi() {
               setLatency(latency)
 
               // Handle the note press here
-              console.log('\x1b[94mNote On:\x1b[0m', note)
+              // console.log('\x1b[94mNote On:\x1b[0m', note)
             }
           } else if (command === 128) {
             // Note Off
             if (pressedNotes.has(note)) {
               pressedNotes.delete(note)
               // Handle the note release here
-              console.log('\x1b[91mNote Off:\x1b[0m', note)
+              // console.log('\x1b[91mNote Off:\x1b[0m', note)
+
+              // Notify the parent component (App.jsx) about the MIDI key click
+              onMidiKeyClick(note)
             }
           }
         }
@@ -84,7 +95,7 @@ function HandleMidi() {
       pressedNotes.forEach((note) => {
         pressedNotes.delete(note)
         // Handle the note release here
-        console.log('\x1b[94mNote On (on unmount):\x1b[0m', note)
+        // console.log('\x1b[94mNote On (on unmount):\x1b[0m', note)
       })
     }
   }, [initializeMIDI])
@@ -92,16 +103,20 @@ function HandleMidi() {
   return (
     <div className="flex flex-col items-center">
       <button
-        className="font-ostrich bg-custom-3 border-custom-2 mb-6 rounded-lg border-4 border-opacity-10 p-2 text-2xl font-normal shadow-xl"
+        className="mb-6 rounded-lg border-4 border-custom-2 border-opacity-10 bg-custom-3 p-2 font-ostrich text-2xl font-normal shadow-xl"
         onClick={startAudioContext}
       >
         Start Audio
       </button>
-      <div className="font-ostrich bg-custom-3 border-custom-2 mb-6 rounded-lg border-4 border-opacity-10 p-2 text-2xl font-normal shadow-lg">
+      <div className="mb-6 rounded-lg border-4 border-custom-2 border-opacity-10 bg-custom-3 p-2 font-ostrich text-2xl font-normal shadow-lg">
         Latency (ms): {latency}
       </div>
     </div>
   )
+}
+
+HandleMidi.propTypes = {
+  onMidiKeyClick: PropTypes.func.isRequired,
 }
 
 export default HandleMidi
