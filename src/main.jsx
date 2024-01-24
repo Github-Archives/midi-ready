@@ -4,7 +4,8 @@ import App from './App.jsx'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  // Perhaps experiment with/without <React.StrictMode> wrapper around <App />. It could be making the keys play twice (double rendering). Also, it only double renders in dev not prod
+  // <React.StrictMode>
+  <App />,
+  // </React.StrictMode>,
 )

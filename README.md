@@ -13,3 +13,11 @@ Basic browser keyboard triggered by midi input
 [Parse a MIDI file into a Tone.js-friendly JSON format.](https://tonejs.github.io/Midi/)
 
 [Downloadable MIDI Files](https://bitmidi.com/)
+
+## TODO/Issues:
+
+- Audio is delayed slightly on initial press
+- Mouse click plays single note - triggering single audio play everytime
+- Outboard MIDI triggers same note multiple times on subsequent presses. ie press C once, plays C, press C again, plays C twice simultaneously, and so on. If you change the note you play, the amount of simultaneous notes played is still +=1, however instead of 3,4, or 5 C's you get 3,4, or 5 of the new note playing simultaneously. This stacking of notes is causing the audio to crash and stop sounding.
+- Related: Notice that the in the `// Note Off` section line #65 I will get a RED console.log(`Note Off: ${note}`) when the accumulation of notes begins.
+- I've disabled `<React.StrictMode>` in `main.jsx` for now.

@@ -19,7 +19,9 @@ function HandleTone(source, command, note, velocity) {
   // 3. The third (optional) argument of triggerAttackRelease is when along the AudioContext time the note should play. It can be used to schedule events in the future.
   // triggerAttackRelease(note, duration, time)
   if (source === 'MIDI') {
-    synth.triggerAttackRelease(ConvertMidiToNoteNames(note), '8n', now)
+    // ! This is where I'm getting the following warning when it appears notes don't play
+    // ! The AudioContext is "suspended". Invoke Tone.start() from a user action to start the audio.
+    synth.triggerAttackRelease(ConvertMidiToNoteNames(note), '8n', now) // ! When notes are not playing (bunching up) this is where something bad happens. called by LatencyHandling which is called by HandleTone
   } else {
     synth.triggerAttackRelease(note, '8n', now)
   }

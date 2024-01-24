@@ -49,6 +49,7 @@ function HandleMidi() {
               const HandleToneWithLatency = measureLatency(HandleTone)
 
               // This is how you call the wrapped HandleTone function as well as store returned latency of HandleTone
+              // ! SOURCE.. HandleMidi -> LatencyHandling -> HandleTone
               const latency = HandleToneWithLatency(
                 'MIDI',
                 command,
@@ -64,8 +65,8 @@ function HandleMidi() {
             // Note Off
             if (pressedNotes.has(note)) {
               pressedNotes.delete(note)
-              // Handle the note release here
-              console.log('\x1b[91mNote Off:\x1b[0m', note)
+              // Handle the note release here {1}
+              console.log('\x1b[91mNote Off:\x1b[0m', note) // ? This prints when trouble starts ?
             }
           }
         }
@@ -83,11 +84,11 @@ function HandleMidi() {
       // Release all pressed notes when unmounting
       pressedNotes.forEach((note) => {
         pressedNotes.delete(note)
-        // Handle the note release here
+        // Handle the note release here {2}
         console.log('\x1b[94mNote On (on unmount):\x1b[0m', note)
       })
     }
-  }, [initializeMIDI])
+  }, [initializeMIDI]) // ?
 
   return (
     <div className="flex flex-col items-center">
