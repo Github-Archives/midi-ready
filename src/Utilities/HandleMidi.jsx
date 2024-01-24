@@ -49,6 +49,7 @@ function HandleMidi() {
               const HandleToneWithLatency = measureLatency(HandleTone)
 
               // This is how you call the wrapped HandleTone function as well as store returned latency of HandleTone
+              // ! SOURCE.. HandleMidi -> LatencyHandling -> HandleTone
               const latency = HandleToneWithLatency(
                 'MIDI',
                 command,
@@ -64,8 +65,8 @@ function HandleMidi() {
             // Note Off
             if (pressedNotes.has(note)) {
               pressedNotes.delete(note)
-              // Handle the note release here
-              console.log('\x1b[91mNote Off:\x1b[0m', note)
+              // Handle the note release here {1}
+              console.log('\x1b[91mNote Off:\x1b[0m', note) // ? This prints when trouble starts ?
             }
           }
         }
@@ -83,21 +84,21 @@ function HandleMidi() {
       // Release all pressed notes when unmounting
       pressedNotes.forEach((note) => {
         pressedNotes.delete(note)
-        // Handle the note release here
+        // Handle the note release here {2}
         console.log('\x1b[94mNote On (on unmount):\x1b[0m', note)
       })
     }
-  }, [initializeMIDI])
+  }, [initializeMIDI]) // ?
 
   return (
     <div className="flex flex-col items-center">
       <button
-        className="font-ostrich bg-custom-3 border-custom-2 mb-6 rounded-lg border-4 border-opacity-10 p-2 text-2xl font-normal shadow-xl"
+        className="mb-6 rounded-lg border-4 border-custom-2 border-opacity-10 bg-custom-3 p-2 font-ostrich text-2xl font-normal shadow-xl"
         onClick={startAudioContext}
       >
         Start Audio
       </button>
-      <div className="font-ostrich bg-custom-3 border-custom-2 mb-6 rounded-lg border-4 border-opacity-10 p-2 text-2xl font-normal shadow-lg">
+      <div className="mb-6 rounded-lg border-4 border-custom-2 border-opacity-10 bg-custom-3 p-2 font-ostrich text-2xl font-normal shadow-lg">
         Latency (ms): {latency}
       </div>
     </div>
