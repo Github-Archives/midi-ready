@@ -21,7 +21,7 @@ function HandleTone(source, command, note, velocity) {
   if (source === 'MIDI') {
     // ! This is where I'm getting the following warning when it appears notes don't play
     // ! The AudioContext is "suspended". Invoke Tone.start() from a user action to start the audio.
-    synth.triggerAttackRelease(ConvertMidiToNoteNames(note), '8n', now) // ! When notes are not playing (bunching up) this is where something bad happens. called by LatencyHandling which is called by HandleTone
+    synth.triggerAttackRelease(ConvertMidiToNoteNames(note), '8n', now) // ! When notes are not playing (bunching up) this is where something bad happens. called by LatencyHandling which is called by HandleMidi
   } else {
     synth.triggerAttackRelease(note, '8n', now)
   }
