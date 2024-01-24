@@ -14,12 +14,10 @@ function HandleTone(source, command, note, velocity) {
   const synth = new Tone.Synth().toDestination()
   const now = Tone.now() // (Optional)
 
+  // 1. The first argument to the note which can either be a frequency in hertz (like 440) or as “pitch-octave” notation (like "D#2").
+  // 2. The second argument is the duration that the note is held. This value can either be in seconds, or as a tempo-relative value.
+  // 3. The third (optional) argument of triggerAttackRelease is when along the AudioContext time the note should play. It can be used to schedule events in the future.
   // triggerAttackRelease(note, duration, time)
-  // The first argument to the note which can either be a frequency in hertz (like 440) or as “pitch-octave” notation (like "D#2").
-
-  // The second argument is the duration that the note is held. This value can either be in seconds, or as a tempo-relative value.
-
-  // The third (optional) argument of triggerAttackRelease is when along the AudioContext time the note should play. It can be used to schedule events in the future.
   if (source === 'MIDI') {
     synth.triggerAttackRelease(ConvertMidiToNoteNames(note), '8n', now)
   } else {

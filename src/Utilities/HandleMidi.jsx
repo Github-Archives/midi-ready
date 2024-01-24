@@ -92,12 +92,12 @@ function HandleMidi() {
   return (
     <div className="flex flex-col items-center">
       <button
-        className="font-ostrich bg-custom-3 border-custom-2 mb-6 rounded-lg border-4 border-opacity-10 p-2 text-2xl font-normal shadow-xl"
+        className="mb-6 rounded-lg border-4 border-custom-2 border-opacity-10 bg-custom-3 p-2 font-ostrich text-2xl font-normal shadow-xl"
         onClick={startAudioContext}
       >
         Start Audio
       </button>
-      <div className="font-ostrich bg-custom-3 border-custom-2 mb-6 rounded-lg border-4 border-opacity-10 p-2 text-2xl font-normal shadow-lg">
+      <div className="mb-6 rounded-lg border-4 border-custom-2 border-opacity-10 bg-custom-3 p-2 font-ostrich text-2xl font-normal shadow-lg">
         Latency (ms): {latency}
       </div>
     </div>
