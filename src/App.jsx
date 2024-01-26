@@ -1,8 +1,13 @@
 import HandleMidi from './Utilities/HandleMidi'
 import HandleTone from './Utilities/HandleTone'
+import { Controls } from './components/Controls'
+import { BearCounter } from './components/BearCounter'
+import useStore from '../store'
 import './App.css'
 
 const App = () => {
+  const increasePopulation = useStore((state) => state.increasePopulation)
+  const removeAllBears = useStore((state) => state.removeAllBears)
   // Handle GUI button clicks
   function handleButtonClick(event, note) {
     console.log(`Clicked button with note: ${note}`)
@@ -11,6 +16,14 @@ const App = () => {
   }
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-custom-1">
+      <Controls
+        onIncreasePopulation={increasePopulation}
+        onRemoveAllBears={removeAllBears}
+      />
+      <BearCounter />
+      {/* After importing 'useStore' this is how you get state anywhere */}
+      <div>useStore: {useStore((state) => state.bears)}</div>
+
       <h1 className="mb-6 font-ostrich text-5xl font-extrabold text-custom-2 ">
         Welcome to midi-ready!
       </h1>

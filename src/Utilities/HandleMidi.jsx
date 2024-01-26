@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import HandleTone from './HandleTone'
 import { measureLatency } from './LatencyHandling'
+// ! use Store
+import useStore from '../../store'
 
 function HandleMidi() {
   // Create a Set to store the currently pressed notes. Sets allow only one instance of each value.
@@ -10,8 +12,11 @@ function HandleMidi() {
   // Latency state
   const [latency, setLatency] = useState(0)
 
+  // ! use the Store
+
   // Function to start the Tone.js AudioContext
   const startAudioContext = () => {
+    // ? startAudioContext is not done right yet
     if (audioContext.current && audioContext.current.state === 'suspended') {
       audioContext.current.resume().then(() => {
         console.log('AudioContext resumed\n')
@@ -36,9 +41,8 @@ function HandleMidi() {
           // note 0 - 127 (middle C = 60)
           // velocity 0 - 127 (0 = no sound, 127 = full volume)
           const [command, note, velocity] = event.data
-
+          //* 144 = Note on
           if (command === 144) {
-            // Note On
             if (!pressedNotes.has(note)) {
               pressedNotes.add(note)
 
@@ -61,8 +65,8 @@ function HandleMidi() {
               // Handle the note press here
               console.log('\x1b[94mNote On:\x1b[0m', note)
             }
+            //* 128 = Note Off
           } else if (command === 128) {
-            // Note Off
             if (pressedNotes.has(note)) {
               pressedNotes.delete(note)
               // Handle the note release here {1}
