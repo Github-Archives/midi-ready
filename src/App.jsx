@@ -3,6 +3,7 @@ import HandleTone from './Utilities/HandleTone'
 import { Controls } from './components/Controls'
 import { BearCounter } from './components/BearCounter'
 import useStore from '../store'
+import noteStore from '../noteStore'
 import './App.css'
 
 const App = () => {
@@ -10,7 +11,7 @@ const App = () => {
   const removeAllBears = useStore((state) => state.removeAllBears)
   // Handle GUI button clicks
   function handleButtonClick(event, note) {
-    console.log(`Clicked button with note: ${note}`)
+    // console.log(`Clicked button with note: ${note}`)
     // Play the Tone.js synth
     HandleTone('GUI', 144, note)
   }

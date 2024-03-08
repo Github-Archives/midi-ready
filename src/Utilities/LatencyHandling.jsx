@@ -7,6 +7,7 @@ export function measureLatency(HandleTone) {
 
     // Call the original HandleTone function
     HandleTone(source, command, note, velocity) // ! Called by HandleTone
+    // console.log(`\n\t\tNOTE HERE: [${note}]`)
 
     const endTime = performance.now()
     const latency = endTime - startTime

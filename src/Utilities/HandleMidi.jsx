@@ -3,6 +3,7 @@ import HandleTone from './HandleTone'
 import { measureLatency } from './LatencyHandling'
 // ! use Store
 import useStore from '../../store'
+import noteStore from '../../noteStore'
 
 function HandleMidi() {
   // Create a Set to store the currently pressed notes. Sets allow only one instance of each value.
@@ -16,7 +17,7 @@ function HandleMidi() {
 
   // Function to start the Tone.js AudioContext
   const startAudioContext = () => {
-    // ? startAudioContext is not done right yet
+    // Todo: startAudioContext is not done right yet
     if (audioContext.current && audioContext.current.state === 'suspended') {
       audioContext.current.resume().then(() => {
         console.log('AudioContext resumed\n')
@@ -45,6 +46,7 @@ function HandleMidi() {
           if (command === 144) {
             if (!pressedNotes.has(note)) {
               pressedNotes.add(note)
+              // console.log(`\n\tKeyboard Pressed Noted --> [${note}]`)
 
               // Start the AudioContext before triggering notes
               startAudioContext()
@@ -63,7 +65,7 @@ function HandleMidi() {
               setLatency(latency)
 
               // Handle the note press here
-              console.log('\x1b[94mNote On:\x1b[0m', note)
+              // console.log('\x1b[94mNote On:\x1b[0m', note)
             }
             //* 128 = Note Off
           } else if (command === 128) {
@@ -89,7 +91,7 @@ function HandleMidi() {
       pressedNotes.forEach((note) => {
         pressedNotes.delete(note)
         // Handle the note release here {2}
-        console.log('\x1b[94mNote On (on unmount):\x1b[0m', note)
+        // console.log('\x1b[94mNote On (on unmount):\x1b[0m', note)
       })
     }
   }, [initializeMIDI]) // ?

@@ -138,9 +138,10 @@ function ConvertMidiToNoteNames(midiNote) {
 
   const noteName = midiToNoteNames[midiNote]
 
-  console.log(
-    `ConvertMidiToNoteNames\nmidiNote: ${midiNote} \nnoteName: ${noteName}`,
-  )
+  // console.log(
+  //   `ConvertMidiToNoteNames\nmidiNote: ${midiNote} \nnoteName: ${noteName}`,
+  // )
+  // console.log(`\n\tNOTE NAME -> [${noteName}]`)
   return noteName
 }
 
