@@ -12,7 +12,7 @@ const App = () => {
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-custom-1">
       <h1 className="mb-6 font-ostrich text-5xl font-extrabold text-custom-2 ">
-        Welcome to midi-ready zzzzz!
+        Welcome to midi-ready!
       </h1>
       <HandleMidi />
 
